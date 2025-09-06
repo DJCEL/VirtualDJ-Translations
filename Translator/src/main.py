@@ -66,7 +66,7 @@ def main():
    df3 = ReadXML(filepath3,"German")
    df4 = ReadXML(filepath4,"Italian")
 
-   # Save to Excel
+   # Save to Excel files
    df1.to_excel(output_file1)
    print(f"Excel files saved as {output_file1}")
    df2.to_excel(output_file2)
@@ -84,15 +84,15 @@ def main():
    filter_german_missing = df100["German"].isna() | (df100["German"].str.strip() == "")
    filter_italian_missing = df100["Italian"].isna() | (df100["Italian"].str.strip() == "")
 
-   df102 = df100[filter_french_missing]
+   df102 = df100.loc[filter_french_missing,["English","French"]]
    df102.to_excel(output_file_french_missing)
    print(f"Missing French translations Excel file saved as {output_file_french_missing}")
 
-   df103 = df100[filter_german_missing]
+   df103 = df100.loc[filter_german_missing,["English","German"]]
    df103.to_excel(output_file_german_missing)
    print(f"Missing German translations Excel file saved as {output_file_german_missing}")
 
-   df103 = df100[filter_italian_missing]
+   df103 = df100.loc[filter_italian_missing,["English","Italian"]]
    df103.to_excel(output_file_italian_missing)
    print(f"Missing Italian translations Excel file saved as {output_file_italian_missing}")
 
