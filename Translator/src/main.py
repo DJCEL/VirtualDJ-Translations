@@ -9,15 +9,24 @@ def ReadXML(xml_file:str):
     # Recursive function to flatten XML structure
     def flatten_xml(element, parent_path=""):
         rows = []
-        tag_path = f"{parent_path}_{element.tag}" if parent_path else element.tag
+        element_tag = element.tag
+
+        if parent_path == "":
+            tag_path = f"<{element_tag}>"
+        elif parent_path[0] =='<':
+            tag_path = f"{parent_path}<{element_tag}>"
+        else:
+            tag_path = f"<{parent_path}><{element_tag}>"
     
         # If element has text and it's not just whitespace, save it
         if element.text and element.text.strip():
-            rows.append((tag_path, element.text.strip()))
+            tag_value = (tag_path, element.text.strip())
+            rows.append(tag_value)
     
         # Process attributes (with @ prefix)
         for attr, value in element.attrib.items():
-            rows.append((f"{tag_path}_@{attr}", value))
+            tag_attr = (f"{tag_path[:-1]} @{attr}>", value)
+            rows.append(tag_attr)
     
         # Recurse into children
         for child in element:
