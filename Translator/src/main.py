@@ -68,7 +68,7 @@ def process_languages(languages_list):
     for language in languages_list:
        if language != "English":
            print(f"Processing missing translation for language: {language}")
-           filter_missing = df_merged[f"{language}"].isna() | (df_merged[f"{language}"].str.strip() == "")
+           filter_missing = (df_merged[f"{language}"].isna() | (df_merged[f"{language}"].str.strip() == "")) & (df_merged["English"].notna() & (df_merged["English"].str.strip() != ""))
            df_missing = df_merged.loc[filter_missing,["English",f"{language}"]]
            output_file_missing = f"./excel/Missing/Missing_{language}.xlsx"
            df_missing.to_excel(output_file_missing)
