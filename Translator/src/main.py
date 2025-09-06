@@ -14,7 +14,7 @@ def ReadXML(xml_file:str, colname:str):
         # Process attributes
         tag_attr = ""
         for attr, value in element.attrib.items():
-            tag_attr = tag_attr + f' {attr}="{value}"'
+            tag_attr = tag_attr + f" {attr}='{value}'"
 
         if tag_attr != "":
             element_tag = element_tag + tag_attr
