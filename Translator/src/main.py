@@ -42,12 +42,12 @@ def main():
    df1 = ReadXML(filepath1)
    df2 = ReadXML(filepath2)
 
-   #TODO: merge df1 and df2 based on Tag column
-
    # Save to Excel
    df1.to_excel(output_file1, index=False)
    df2.to_excel(output_file2, index=False)
    print(f"Excel files saved as {output_file1} and {output_file2}")
+
+   #TODO: merge df1 and df2 based on Tag column in order to compare translations
 
 if __name__ == "__main__":
     main()
