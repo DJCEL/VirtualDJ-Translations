@@ -11,22 +11,25 @@ def ReadXML(xml_file:str):
         rows = []
         element_tag = element.tag
 
+        # Process attributes
+        tag_attr = ""
+        for attr, value in element.attrib.items():
+            tag_attr = tag_attr + f' {attr}="{value}"'
+
+        if tag_attr != "":
+            element_tag = element_tag + tag_attr
+
         if parent_path == "":
             tag_path = f"<{element_tag}>"
-        elif parent_path[0] =='<':
-            tag_path = f"{parent_path}<{element_tag}>"
+        elif parent_path.startswith("<language lang="):
+            tag_path = f"<{element_tag}>"     
         else:
-            tag_path = f"<{parent_path}><{element_tag}>"
-    
+            tag_path = f"{parent_path}<{element_tag}>"
+
         # If element has text and it's not just whitespace, save it
         if element.text and element.text.strip():
             tag_value = (tag_path, element.text.strip())
             rows.append(tag_value)
-    
-        # Process attributes (with @ prefix)
-        for attr, value in element.attrib.items():
-            tag_attr = (f"{tag_path[:-1]} @{attr}>", value)
-            rows.append(tag_attr)
     
         # Recurse into children
         for child in element:
