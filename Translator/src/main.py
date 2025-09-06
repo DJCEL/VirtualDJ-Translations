@@ -53,6 +53,7 @@ def main():
    output_file1 = "./excel/English_flattened.xlsx"
    output_file2 = "./excel/French_flattened.xlsx"
    output_file_merged = "../Compare_Files.xlsx"
+   output_file_missing = "../Missing_in_French.xlsx"
 
    df1 = ReadXML(filepath1,"English")
    df2 = ReadXML(filepath2,"French")
@@ -66,8 +67,12 @@ def main():
    df3.to_excel(output_file_merged)
    print(f"Merged Excel file saved as {output_file_merged}")
 
-   df4 = df3[df3.isnull().any(axis=1)]
+   filter_missing = df3["French"].isna() | (df3["French"].str.strip() == "")
+
+   df4 = df3[filter_missing]
+   df4.to_excel(output_file_missing)
+   print(f"Missing translations Excel file saved as {output_file_missing}")
 
 
 if __name__ == "__main__":
-    main()
+   main()
