@@ -54,12 +54,12 @@ def process_languages(languages_list):
     for language in languages_list:
        print(f"Processing language: {language}")
        filepath = f"../Languages/{language}.xml"
-       output_file = f"./excel/Flattened/Flattened_{language}.xlsx"
        df = ReadXML(filepath,f"{language}")
+       df_languages_list.append(df)
+       output_file = f"./excel/Flattened/Flattened_{language}.xlsx"
        df.to_excel(output_file)
        print(f"Excel files saved as {output_file}")
-       df_languages_list.append(df)
-
+       
     output_file_merged = "./excel/Compare_Files.xlsx"
     df_merged = pd.concat(df_languages_list, axis=1, join="outer")
     df_merged.to_excel(output_file_merged)
@@ -68,9 +68,9 @@ def process_languages(languages_list):
     for language in languages_list:
        if language != "English":
            print(f"Processing missing translation for language: {language}")
-           output_file_missing = f"./excel/Missing/Missing_{language}.xlsx"
            filter_missing = df_merged[f"{language}"].isna() | (df_merged[f"{language}"].str.strip() == "")
            df_missing = df_merged.loc[filter_missing,["English",f"{language}"]]
+           output_file_missing = f"./excel/Missing/Missing_{language}.xlsx"
            df_missing.to_excel(output_file_missing)
            print(f"Missing {language} translations Excel file saved as {output_file_missing}")
 
