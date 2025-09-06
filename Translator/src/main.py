@@ -52,8 +52,8 @@ def main():
    filepath2 = "../French.xml"
    output_file1 = "./excel/English_flattened.xlsx"
    output_file2 = "./excel/French_flattened.xlsx"
-   output_file_merged = "../Compare_Files.xlsx"
-   output_file_missing = "../Missing_in_French.xlsx"
+   output_file_merged = "./excel/Compare_Files.xlsx"
+   output_file_missing = "./excel/Missing_in_French.xlsx"
 
    df1 = ReadXML(filepath1,"English")
    df2 = ReadXML(filepath2,"French")
