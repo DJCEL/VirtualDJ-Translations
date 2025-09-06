@@ -1,1 +1,1 @@
-# VirtualDJ-Translation-French
+# VirtualDJ-Translations
