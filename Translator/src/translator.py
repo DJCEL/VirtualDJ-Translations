@@ -10,17 +10,19 @@ def translate_missing(language):
       print("No missing translations found.")
       return
     
-    df.set_index('Tag', inplace=True)
+    #df.set_index('Tag', inplace=True)
 
     number_of_rows = df.shape[0]  # len(df.index)
 
     row_id = 0
 
-    tag = df.loc[row_id,'Tag']
+    tag = df.loc[row_id,"Tag"]
     print("Tag =", tag)
 
-    input_text_english = df.loc[row_id, 'English']
+    input_text_english = df.loc[row_id, "English"]
     print("English =",input_text_english)
+
+    df[f"{language}"] = df[f"{language}"].astype("string")
   
     client = OpenAI()
 
@@ -31,7 +33,7 @@ def translate_missing(language):
         text={ "verbosity": "low" },
     )
 
-    translation = result.output_text
+    translation = str(result.output_text)
 
     print(f"{language} =", translation)
     print("\n")
