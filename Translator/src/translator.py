@@ -8,6 +8,10 @@ def translate_missing(language):
     if df.empty:
       print("No missing translations found.")
       return
+    
+    df.set_index('Tag', inplace=True)
+
+    number_of_rows = df.shape[0]  # len(df.index)
 
     tag = df.iloc[0]['Tag']
     print("Tag =", tag)
