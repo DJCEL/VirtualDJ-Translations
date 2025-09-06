@@ -3,6 +3,7 @@ import pandas as pd
 
 def translate_missing(language):
     file_missing = f"./excel/Missing/Missing_{language}.xlsx"
+    file_translated = f"./excel/Translated/Translated_{language}.xlsx"
 
     df = pd.read_excel(file_missing)
     if df.empty:
@@ -13,10 +14,12 @@ def translate_missing(language):
 
     number_of_rows = df.shape[0]  # len(df.index)
 
-    tag = df.iloc[0]['Tag']
+    row_id = 0
+
+    tag = df.loc[row_id,'Tag']
     print("Tag =", tag)
 
-    input_text_english = df.iloc[0]['English']
+    input_text_english = df.loc[row_id, 'English']
     print("English =",input_text_english)
   
     client = OpenAI()
@@ -33,7 +36,9 @@ def translate_missing(language):
     print(f"{language} =", translation)
     print("\n")
 
-    #df.iloc[0]['French'] = translation
+    df.loc[row_id,f"{language}"] = translation
+    df.to_excel(file_translated)
+    print(f"Excel files saved as {file_translated}")
 
 
 def main():
