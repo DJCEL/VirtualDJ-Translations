@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as ET
 import pandas as pd
 
-def ReadXML(xml_file:str):
+def ReadXML(xml_file:str, colname:str):
     # Load and parse the XML file
     tree = ET.parse(xml_file)
     root = tree.getroot()
@@ -41,7 +41,7 @@ def ReadXML(xml_file:str):
     flattened_data = flatten_xml(root)
 
     # Create DataFrame
-    df = pd.DataFrame(flattened_data, columns=["Tag", "Value"])
+    df = pd.DataFrame(flattened_data, columns=["Tag", colname])
  
     return df
 
@@ -51,15 +51,23 @@ def main():
    output_file1 = "./excel/English_flattened.xlsx"
    output_file2 = "./excel/French_flattened.xlsx"
 
-   df1 = ReadXML(filepath1)
-   df2 = ReadXML(filepath2)
+   df1 = ReadXML(filepath1,"English")
+   df2 = ReadXML(filepath2,"French")
+
+   df1.set_index("Tag", inplace=True)
+   df2.set_index("Tag", inplace=True)
 
    # Save to Excel
-   df1.to_excel(output_file1, index=False)
-   df2.to_excel(output_file2, index=False)
+   df1.to_excel(output_file1)
+   df2.to_excel(output_file2)
    print(f"Excel files saved as {output_file1} and {output_file2}")
 
-   #TODO: merge df1 and df2 based on Tag column in order to compare translations
+   result = pd.concat([df1, df2], axis=1, join="outer")
+
+   output_file_merged = "../Compare_Files.xlsx"
+   result.to_excel(output_file_merged)
+   print(f"Merged Excel file saved as {output_file_merged}")
+
 
 if __name__ == "__main__":
     main()
