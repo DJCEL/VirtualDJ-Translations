@@ -9,36 +9,35 @@ def translate_missing(language):
     if df.empty:
       print("No missing translations found.")
       return
-    
-    #df.set_index('Tag', inplace=True)
-
+   
     number_of_rows = df.shape[0]  # len(df.index)
 
-    row_id = 0
+    for row_id in range(number_of_rows):
+        tag = df.loc[row_id,"Tag"]
+        print("Tag =", tag)
 
-    tag = df.loc[row_id,"Tag"]
-    print("Tag =", tag)
+        input_text_english = df.loc[row_id, "English"]
+        print("English =",input_text_english)
 
-    input_text_english = df.loc[row_id, "English"]
-    print("English =",input_text_english)
-
-    df[f"{language}"] = df[f"{language}"].astype("string")
+        df[f"{language}"] = df[f"{language}"].astype("string")
   
-    client = OpenAI()
+        client = OpenAI()
 
-    result = client.responses.create(
-        model="gpt-5",
-        input=f"Translate in {language} the following text: {input_text_english}",
-        reasoning={ "effort": "low" },
-        text={ "verbosity": "low" },
-    )
+        result = client.responses.create(
+            model="gpt-5",
+            input=f"Translate in {language} the following text: {input_text_english}",
+            reasoning={ "effort": "low" },
+            text={ "verbosity": "low" },
+        )
 
-    translation = str(result.output_text)
+        translation = str(result.output_text)
 
-    print(f"{language} =", translation)
-    print("\n")
+        print(f"{language} =", translation)
+        print("\n")
 
-    df.loc[row_id,f"{language}"] = translation
+        df.loc[row_id,f"{language}"] = translation
+    
+    df.set_index("Tag", inplace=True)
     df.to_excel(file_translated)
     print(f"Excel files saved as {file_translated}")
 
