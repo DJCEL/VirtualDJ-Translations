@@ -48,19 +48,16 @@ def ReadXML(xml_file:str, colname:str):
     return df
 
 def main():
-   languages_list = ["English", "French", "German", "Italian", "Dutch","Spanish","Greek","Portuguese","Japanese","Russian","Chinese (simplified)","Arabic"]
-
-
+   languages_list = ["English","French","German","Italian","Dutch","Spanish","Greek","Portuguese","Japanese","Russian","Chinese (simplified)","Arabic"]
 
    filepath_English = "../Languages/English.xml"
-   filepath_French = "../Languages/French.xml"
-   filepath_German = "../Languages/German.xml"
-   filepath_Italian = "../Languages/Italian.xml"
    output_file_English = "./excel/English_flattened.xlsx"
+   filepath_French = "../Languages/French.xml"
    output_file_French = "./excel/French_flattened.xlsx"
+   filepath_German = "../Languages/German.xml"
    output_file_German = "./excel/German_flattened.xlsx"
+   filepath_Italian = "../Languages/Italian.xml"
    output_file_Italian = "./excel/Italian_flattened.xlsx"
-
 
    df_English = ReadXML(filepath_English,"English")
    df_French = ReadXML(filepath_French,"French")
@@ -83,25 +80,25 @@ def main():
    print(f"Merged Excel file saved as {output_file_merged}")
 
 
-   output_file_french_missing = "./excel/Missing_in_French.xlsx"
-   output_file_german_missing = "./excel/Missing_in_German.xlsx"
-   output_file_italian_missing = "./excel/Missing_in_Italian.xlsx"
+   output_file_missing_French = "./excel/Missing_in_French.xlsx"
+   output_file_missing_German = "./excel/Missing_in_German.xlsx"
+   output_file_missing_Italian = "./excel/Missing_in_Italian.xlsx"
 
-   filter_french_missing = df100["French"].isna() | (df100["French"].str.strip() == "")
-   filter_german_missing = df100["German"].isna() | (df100["German"].str.strip() == "")
-   filter_italian_missing = df100["Italian"].isna() | (df100["Italian"].str.strip() == "")
+   filter_missing_French = df100["French"].isna() | (df100["French"].str.strip() == "")
+   filter_missing_German = df100["German"].isna() | (df100["German"].str.strip() == "")
+   filter_missing_Italian = df100["Italian"].isna() | (df100["Italian"].str.strip() == "")
 
-   df102 = df100.loc[filter_french_missing,["English","French"]]
-   df102.to_excel(output_file_french_missing)
-   print(f"Missing French translations Excel file saved as {output_file_french_missing}")
+   df102 = df100.loc[filter_missing_French,["English","French"]]
+   df102.to_excel(output_file_missing_French)
+   print(f"Missing French translations Excel file saved as {output_file_missing_French}")
 
-   df103 = df100.loc[filter_german_missing,["English","German"]]
-   df103.to_excel(output_file_german_missing)
-   print(f"Missing German translations Excel file saved as {output_file_german_missing}")
+   df103 = df100.loc[filter_missing_German,["English","German"]]
+   df103.to_excel(output_file_missing_German)
+   print(f"Missing German translations Excel file saved as {output_file_missing_German}")
 
-   df103 = df100.loc[filter_italian_missing,["English","Italian"]]
-   df103.to_excel(output_file_italian_missing)
-   print(f"Missing Italian translations Excel file saved as {output_file_italian_missing}")
+   df103 = df100.loc[filter_missing_Italian,["English","Italian"]]
+   df103.to_excel(output_file_missing_Italian)
+   print(f"Missing Italian translations Excel file saved as {output_file_missing_Italian}")
 
 
 if __name__ == "__main__":
