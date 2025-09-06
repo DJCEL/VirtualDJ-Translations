@@ -48,37 +48,44 @@ def ReadXML(xml_file:str, colname:str):
     return df
 
 def main():
-   filepath1 = "../Languages/English.xml"
-   filepath2 = "../Languages/French.xml"
-   filepath3 = "../Languages/German.xml"
-   filepath4 = "../Languages/Italian.xml"
-   output_file1 = "./excel/English_flattened.xlsx"
-   output_file2 = "./excel/French_flattened.xlsx"
-   output_file3 = "./excel/German_flattened.xlsx"
-   output_file4 = "./excel/Italian_flattened.xlsx"
+   languages_list = ["English", "French", "German", "Italian", "Dutch","Spanish","Greek","Portuguese","Japanese","Russian","Chinese (simplified)","Arabic"]
+
+
+
+   filepath_English = "../Languages/English.xml"
+   filepath_French = "../Languages/French.xml"
+   filepath_German = "../Languages/German.xml"
+   filepath_Italian = "../Languages/Italian.xml"
+   output_file_English = "./excel/English_flattened.xlsx"
+   output_file_French = "./excel/French_flattened.xlsx"
+   output_file_German = "./excel/German_flattened.xlsx"
+   output_file_Italian = "./excel/Italian_flattened.xlsx"
+
+
+   df_English = ReadXML(filepath_English,"English")
+   df_French = ReadXML(filepath_French,"French")
+   df_German = ReadXML(filepath_German,"German")
+   df_Italian = ReadXML(filepath_Italian,"Italian")
+
+   # Save to Excel files
+   df_English.to_excel(output_file_English)
+   print(f"Excel files saved as {output_file_English}")
+   df_French.to_excel(output_file_French)
+   print(f"Excel files saved as {output_file_French}")
+   df_German.to_excel(output_file_German)
+   print(f"Excel files saved as {output_file_German}")
+   df_Italian.to_excel(output_file_Italian)
+   print(f"Excel files saved as {output_file_Italian}")
+
    output_file_merged = "./excel/Compare_Files.xlsx"
+   df100 = pd.concat([df_English, df_French, df_German ,df_Italian], axis=1, join="outer")
+   df100.to_excel(output_file_merged)
+   print(f"Merged Excel file saved as {output_file_merged}")
+
+
    output_file_french_missing = "./excel/Missing_in_French.xlsx"
    output_file_german_missing = "./excel/Missing_in_German.xlsx"
    output_file_italian_missing = "./excel/Missing_in_Italian.xlsx"
-
-   df1 = ReadXML(filepath1,"English")
-   df2 = ReadXML(filepath2,"French")
-   df3 = ReadXML(filepath3,"German")
-   df4 = ReadXML(filepath4,"Italian")
-
-   # Save to Excel files
-   df1.to_excel(output_file1)
-   print(f"Excel files saved as {output_file1}")
-   df2.to_excel(output_file2)
-   print(f"Excel files saved as {output_file2}")
-   df3.to_excel(output_file3)
-   print(f"Excel files saved as {output_file3}")
-   df4.to_excel(output_file4)
-   print(f"Excel files saved as {output_file4}")
-
-   df100 = pd.concat([df1, df2, df3 ,df4], axis=1, join="outer")
-   df100.to_excel(output_file_merged)
-   print(f"Merged Excel file saved as {output_file_merged}")
 
    filter_french_missing = df100["French"].isna() | (df100["French"].str.strip() == "")
    filter_german_missing = df100["German"].isna() | (df100["German"].str.strip() == "")
