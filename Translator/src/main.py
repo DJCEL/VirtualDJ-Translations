@@ -42,6 +42,8 @@ def ReadXML(xml_file:str, colname:str):
 
     # Create DataFrame
     df = pd.DataFrame(flattened_data, columns=["Tag", colname])
+
+    df.set_index("Tag", inplace=True)
  
     return df
 
@@ -50,23 +52,21 @@ def main():
    filepath2 = "../French.xml"
    output_file1 = "./excel/English_flattened.xlsx"
    output_file2 = "./excel/French_flattened.xlsx"
+   output_file_merged = "../Compare_Files.xlsx"
 
    df1 = ReadXML(filepath1,"English")
    df2 = ReadXML(filepath2,"French")
-
-   df1.set_index("Tag", inplace=True)
-   df2.set_index("Tag", inplace=True)
 
    # Save to Excel
    df1.to_excel(output_file1)
    df2.to_excel(output_file2)
    print(f"Excel files saved as {output_file1} and {output_file2}")
 
-   result = pd.concat([df1, df2], axis=1, join="outer")
-
-   output_file_merged = "../Compare_Files.xlsx"
-   result.to_excel(output_file_merged)
+   df3 = pd.concat([df1, df2], axis=1, join="outer")
+   df3.to_excel(output_file_merged)
    print(f"Merged Excel file saved as {output_file_merged}")
+
+   df4 = df3[df3.isnull().any(axis=1)]
 
 
 if __name__ == "__main__":
