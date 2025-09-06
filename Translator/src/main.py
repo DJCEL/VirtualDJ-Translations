@@ -48,30 +48,53 @@ def ReadXML(xml_file:str, colname:str):
     return df
 
 def main():
-   filepath1 = "../English.xml"
-   filepath2 = "../French.xml"
+   filepath1 = "../Languages/English.xml"
+   filepath2 = "../Languages/French.xml"
+   filepath3 = "../Languages/German.xml"
+   filepath4 = "../Languages/Italian.xml"
    output_file1 = "./excel/English_flattened.xlsx"
    output_file2 = "./excel/French_flattened.xlsx"
+   output_file3 = "./excel/German_flattened.xlsx"
+   output_file4 = "./excel/Italian_flattened.xlsx"
    output_file_merged = "./excel/Compare_Files.xlsx"
-   output_file_missing = "./excel/Missing_in_French.xlsx"
+   output_file_french_missing = "./excel/Missing_in_French.xlsx"
+   output_file_german_missing = "./excel/Missing_in_German.xlsx"
+   output_file_italian_missing = "./excel/Missing_in_Italian.xlsx"
 
    df1 = ReadXML(filepath1,"English")
    df2 = ReadXML(filepath2,"French")
+   df3 = ReadXML(filepath3,"German")
+   df4 = ReadXML(filepath4,"Italian")
 
    # Save to Excel
    df1.to_excel(output_file1)
+   print(f"Excel files saved as {output_file1}")
    df2.to_excel(output_file2)
-   print(f"Excel files saved as {output_file1} and {output_file2}")
+   print(f"Excel files saved as {output_file2}")
+   df3.to_excel(output_file3)
+   print(f"Excel files saved as {output_file3}")
+   df4.to_excel(output_file4)
+   print(f"Excel files saved as {output_file4}")
 
-   df3 = pd.concat([df1, df2], axis=1, join="outer")
-   df3.to_excel(output_file_merged)
+   df100 = pd.concat([df1, df2, df3 ,df4], axis=1, join="outer")
+   df100.to_excel(output_file_merged)
    print(f"Merged Excel file saved as {output_file_merged}")
 
-   filter_missing = df3["French"].isna() | (df3["French"].str.strip() == "")
+   filter_french_missing = df100["French"].isna() | (df100["French"].str.strip() == "")
+   filter_german_missing = df100["German"].isna() | (df100["German"].str.strip() == "")
+   filter_italian_missing = df100["Italian"].isna() | (df100["Italian"].str.strip() == "")
 
-   df4 = df3[filter_missing]
-   df4.to_excel(output_file_missing)
-   print(f"Missing translations Excel file saved as {output_file_missing}")
+   df102 = df100[filter_french_missing]
+   df102.to_excel(output_file_french_missing)
+   print(f"Missing French translations Excel file saved as {output_file_french_missing}")
+
+   df103 = df100[filter_german_missing]
+   df103.to_excel(output_file_german_missing)
+   print(f"Missing German translations Excel file saved as {output_file_german_missing}")
+
+   df103 = df100[filter_italian_missing]
+   df103.to_excel(output_file_italian_missing)
+   print(f"Missing Italian translations Excel file saved as {output_file_italian_missing}")
 
 
 if __name__ == "__main__":
