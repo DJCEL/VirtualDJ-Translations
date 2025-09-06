@@ -47,58 +47,37 @@ def ReadXML(xml_file:str, colname:str):
  
     return df
 
+
+def process_languages(languages_list):
+    df_languages_list = []
+
+    for language in languages_list:
+       print(f"Processing language: {language}")
+       filepath = f"../Languages/{language}.xml"
+       output_file = f"./excel/{language}_flattened.xlsx"
+       df = ReadXML(filepath,f"{language}")
+       df.to_excel(output_file)
+       print(f"Excel files saved as {output_file}")
+       df_languages_list.append(df)
+
+    output_file_merged = "./excel/Compare_Files.xlsx"
+    df_merged = pd.concat(df_languages_list, axis=1, join="outer")
+    df_merged.to_excel(output_file_merged)
+    print(f"Merged all languages in Excel file saved as {output_file_merged}")
+
+    for language in languages_list:
+       if language != "English":
+           print(f"Processing missing translation for language: {language}")
+           output_file_missing = f"./excel/Missing_in_{language}.xlsx"
+           filter_missing = df_merged[f"{language}"].isna() | (df_merged[f"{language}"].str.strip() == "")
+           df_missing = df_merged.loc[filter_missing,["English",f"{language}"]]
+           df_missing.to_excel(output_file_missing)
+           print(f"Missing {language} translations Excel file saved as {output_file_missing}")
+
 def main():
    languages_list = ["English","French","German","Italian","Dutch","Spanish","Greek","Portuguese","Japanese","Russian","Chinese (simplified)","Arabic"]
 
-   filepath_English = "../Languages/English.xml"
-   output_file_English = "./excel/English_flattened.xlsx"
-   filepath_French = "../Languages/French.xml"
-   output_file_French = "./excel/French_flattened.xlsx"
-   filepath_German = "../Languages/German.xml"
-   output_file_German = "./excel/German_flattened.xlsx"
-   filepath_Italian = "../Languages/Italian.xml"
-   output_file_Italian = "./excel/Italian_flattened.xlsx"
-
-   df_English = ReadXML(filepath_English,"English")
-   df_French = ReadXML(filepath_French,"French")
-   df_German = ReadXML(filepath_German,"German")
-   df_Italian = ReadXML(filepath_Italian,"Italian")
-
-   # Save to Excel files
-   df_English.to_excel(output_file_English)
-   print(f"Excel files saved as {output_file_English}")
-   df_French.to_excel(output_file_French)
-   print(f"Excel files saved as {output_file_French}")
-   df_German.to_excel(output_file_German)
-   print(f"Excel files saved as {output_file_German}")
-   df_Italian.to_excel(output_file_Italian)
-   print(f"Excel files saved as {output_file_Italian}")
-
-   output_file_merged = "./excel/Compare_Files.xlsx"
-   df100 = pd.concat([df_English, df_French, df_German ,df_Italian], axis=1, join="outer")
-   df100.to_excel(output_file_merged)
-   print(f"Merged Excel file saved as {output_file_merged}")
-
-
-   output_file_missing_French = "./excel/Missing_in_French.xlsx"
-   output_file_missing_German = "./excel/Missing_in_German.xlsx"
-   output_file_missing_Italian = "./excel/Missing_in_Italian.xlsx"
-
-   filter_missing_French = df100["French"].isna() | (df100["French"].str.strip() == "")
-   filter_missing_German = df100["German"].isna() | (df100["German"].str.strip() == "")
-   filter_missing_Italian = df100["Italian"].isna() | (df100["Italian"].str.strip() == "")
-
-   df102 = df100.loc[filter_missing_French,["English","French"]]
-   df102.to_excel(output_file_missing_French)
-   print(f"Missing French translations Excel file saved as {output_file_missing_French}")
-
-   df103 = df100.loc[filter_missing_German,["English","German"]]
-   df103.to_excel(output_file_missing_German)
-   print(f"Missing German translations Excel file saved as {output_file_missing_German}")
-
-   df103 = df100.loc[filter_missing_Italian,["English","Italian"]]
-   df103.to_excel(output_file_missing_Italian)
-   print(f"Missing Italian translations Excel file saved as {output_file_missing_Italian}")
+   process_languages(languages_list)
 
 
 if __name__ == "__main__":
