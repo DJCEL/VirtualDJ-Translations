@@ -3,7 +3,7 @@ from translator import translate_missing_list
 
 def main():
     languages_list = ["English","French","German","Italian","Dutch","Spanish","Greek","Portuguese","Japanese","Russian","Chinese (simplified)","Arabic"]
-    languagestotranslate_list = ["French"]
+    languagestotranslate_list = ["Japanese"]
 
     """ We prepare the missing translations by language (file compared to English.xml) """
     """ We use Excel files to store the data """
