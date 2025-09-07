@@ -24,13 +24,16 @@ def translate_missing(language):
         df[f"{language}"] = df[f"{language}"].astype("string")
         
         openai_api_key = os.environ.get("OPENAI_API_KEY")
+        model = "gpt-5"
+        instructions = "You are a translator assistant for a DJ software"
+        input_text = f"Translate in {language} the following text: {input_text_english}"
         
         client = OpenAI(api_key=openai_api_key)
 
         result = client.responses.create(
-            model="gpt-5",
-            instructions="You are a translator assistant for a DJ software",
-            input=f"Translate in {language} the following text: {input_text_english}",
+            model=model,
+            instructions=instructions,
+            input=input_text,
             reasoning={ "effort": "low" },
             text={ "verbosity": "low" },
         )
