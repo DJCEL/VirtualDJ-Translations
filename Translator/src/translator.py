@@ -4,7 +4,7 @@ import pandas as pd
 from pathlib import Path
 
 def translate_missing(language, client, model):
-    print(f"Processing language: {language}\n")
+    print(f"Processing translation for: {language}\n")
 
     file_missing = Path(f"./excel/Missing/Missing_{language}.xlsx")
     file_translated = Path(f"./excel/Translated/Translated_{language}.xlsx")
@@ -57,7 +57,9 @@ def translate_missing_list(languagestotranslate_list):
     Make sure to set the environment variable OPENAI_API_KEY with your API key. 
     """
     openai_api_key = os.environ.get("OPENAI_API_KEY")
-    
+    if not openai_api_key:
+        raise ValueError("Please set the OPENAI_API_KEY environment variable.")
+
     client = OpenAI(api_key=openai_api_key)
     model = "gpt-5"
 
