@@ -8,6 +8,11 @@ def translate_missing(language):
     We use ChatGPT from OpenAI (gpt-5 model) to translate the missing entries in the excel file.
     Make sure to set the environment variable OPENAI_API_KEY with your API key. 
     """
+    if language == "English":
+        return
+
+    print(f"Processing language: {language}\n")
+
     openai_api_key = os.environ.get("OPENAI_API_KEY")
     model = "gpt-5"
     #temperature=
