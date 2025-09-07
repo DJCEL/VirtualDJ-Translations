@@ -61,6 +61,7 @@ def translate_missing_list(languagestotranslate_list):
         raise ValueError("Please set the OPENAI_API_KEY environment variable.")
 
     openai_model = "gpt-5"
+
     client = OpenAI(api_key=openai_api_key)
 
     for language in languagestotranslate_list:
