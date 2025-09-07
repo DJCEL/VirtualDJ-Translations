@@ -59,8 +59,12 @@ def translate_missing(language):
 
 
 def main():
-    language = "Italian"
-    translate_missing(language)
+    #languages_list = ["English","French","German","Italian","Dutch","Spanish","Greek","Portuguese","Japanese","Russian","Chinese (simplified)","Arabic"]
+    languages_list = ["French"]
+    
+    for language in languages_list:
+       print(f"Processing language: {language}\n")
+       translate_missing(language)
 
 if __name__ == "__main__":
    main()
