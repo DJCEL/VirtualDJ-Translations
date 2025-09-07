@@ -28,6 +28,7 @@ def translate_missing(language):
 
         result = client.responses.create(
             model="gpt-5",
+            instructions="You are a translator assistant for a DJ software",
             input=f"Translate in {language} the following text: {input_text_english}",
             reasoning={ "effort": "low" },
             text={ "verbosity": "low" },
