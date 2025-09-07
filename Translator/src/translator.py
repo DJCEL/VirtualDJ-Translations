@@ -29,6 +29,7 @@ def translate_missing(language):
         input_text = f"Translate in {language} the following text: {input_text_english}"
         #temperature=
         #top_p=
+        #max_output_tokens=
         
         client = OpenAI(api_key=openai_api_key)
 
