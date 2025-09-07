@@ -1,3 +1,4 @@
+import os
 from openai import OpenAI
 import pandas as pd
 
@@ -20,8 +21,10 @@ def translate_missing(language):
         print("English =",input_text_english)
 
         df[f"{language}"] = df[f"{language}"].astype("string")
-  
-        client = OpenAI()
+        
+        openai_api_key = os.environ.get("OPENAI_API_KEY")
+        
+        client = OpenAI(api_key=openai_api_key)
 
         result = client.responses.create(
             model="gpt-5",
