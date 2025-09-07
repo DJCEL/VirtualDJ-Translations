@@ -54,7 +54,7 @@ def translate_missing(language):
 
 
 def main():
-    language = "French"
+    language = "Italian"
     translate_missing(language)
 
 if __name__ == "__main__":
