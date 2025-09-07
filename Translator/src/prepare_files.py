@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as ET
 import pandas as pd
+from pathlib import Path
 
 def ReadXML(xml_file:str, colname:str):
     # Load and parse the XML file
@@ -56,14 +57,14 @@ def prepare_process_languages(languages_list):
 
     for language in languages_list:
        print(f"Processing language: {language}")
-       filepath = f"../Languages/{language}.xml"
+       filepath = Path(f"../Languages/{language}.xml")
        df = ReadXML(filepath,f"{language}")
        df_languages_list.append(df)
-       output_file = f"./excel/Flattened/Flattened_{language}.xlsx"
+       output_file = Path(f"./excel/Flattened/Flattened_{language}.xlsx")
        df.to_excel(output_file)
        print(f"Excel files saved as {output_file}")
        
-    output_file_merged = "./excel/Compare_Files.xlsx"
+    output_file_merged = Path("./excel/All_Translations.xlsx")
     df_merged = pd.concat(df_languages_list, axis=1, join="outer")
     df_merged.to_excel(output_file_merged)
     print(f"Merged all languages in Excel file saved as {output_file_merged}")
@@ -73,6 +74,8 @@ def prepare_process_languages(languages_list):
            print(f"Processing missing translation for language: {language}")
            filter_missing = (df_merged[f"{language}"].isna() | (df_merged[f"{language}"].str.strip() == "")) & (df_merged["English"].notna() & (df_merged["English"].str.strip() != ""))
            df_missing = df_merged.loc[filter_missing,["English",f"{language}"]]
-           output_file_missing = f"./excel/Missing/Missing_{language}.xlsx"
+           output_file_missing = Path(f"./excel/Missing/Missing_{language}.xlsx")
            df_missing.to_excel(output_file_missing)
            print(f"Missing {language} translations Excel file saved as {output_file_missing}")
+
+    print("All prepare done.\n")
