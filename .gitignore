@@ -2,4 +2,6 @@
 # Exclude the folders and files below
 ###############################################################################
 /Translator/.vs
+/Translator/src/__pycache__
 ~$*
+
