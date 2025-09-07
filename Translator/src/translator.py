@@ -7,6 +7,15 @@ def translate_missing(language):
     file_missing = f"./excel/Missing/Missing_{language}.xlsx"
     file_translated = f"./excel/Translated/Translated_{language}.xlsx"
 
+    openai_api_key = os.environ.get("OPENAI_API_KEY")
+    model = "gpt-5"
+    #temperature=
+    #top_p=
+    #max_output_tokens=
+
+    client = OpenAI(api_key=openai_api_key)
+
+
     df = pd.read_excel(file_missing)
     if df.empty:
       print("No missing translations found.")
@@ -23,15 +32,8 @@ def translate_missing(language):
 
         df[f"{language}"] = df[f"{language}"].astype("string")
         
-        openai_api_key = os.environ.get("OPENAI_API_KEY")
-        model = "gpt-5"
         instructions = "You are a translator assistant for a DJ software named VirtualDJ."
         input_text = f"Translate in {language} the following text: {input_text_english}"
-        #temperature=
-        #top_p=
-        #max_output_tokens=
-        
-        client = OpenAI(api_key=openai_api_key)
 
         result = client.responses.create(
             model=model,
