@@ -3,7 +3,7 @@ from translator import translate_missing
 
 def main():
     #languages_list = ["English","French","German","Italian","Dutch","Spanish","Greek","Portuguese","Japanese","Russian","Chinese (simplified)","Arabic"]
-    languages_list = ["English","French"]
+    languages_list = ["French"]
 
     prepare_process_languages(languages_list)
 
