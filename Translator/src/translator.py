@@ -25,7 +25,7 @@ def translate_missing(language):
         
         openai_api_key = os.environ.get("OPENAI_API_KEY")
         model = "gpt-5"
-        instructions = "You are a translator assistant for a DJ software"
+        instructions = "You are a translator assistant for a DJ software named VirtualDJ."
         input_text = f"Translate in {language} the following text: {input_text_english}"
         #temperature=
         #top_p=
