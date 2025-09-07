@@ -1,11 +1,11 @@
 import os
 from openai import OpenAI
 import pandas as pd
-#from pathlib import Path
+from pathlib import Path
 
 def translate_missing(language):
-    file_missing = f"./excel/Missing/Missing_{language}.xlsx"
-    file_translated = f"./excel/Translated/Translated_{language}.xlsx"
+    file_missing = Path(f"./excel/Missing/Missing_{language}.xlsx")
+    file_translated = Path(f"./excel/Translated/Translated_{language}.xlsx")
 
     openai_api_key = os.environ.get("OPENAI_API_KEY")
     model = "gpt-5"
