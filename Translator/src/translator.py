@@ -5,7 +5,7 @@ from pathlib import Path
 
 def translate_missing(language):
     """ 
-    We use ChatGPT from OpenAI to translate the missing entries in the excel file.
+    We use ChatGPT from OpenAI (gpt-5 model) to translate the missing entries in the excel file.
     Make sure to set the environment variable OPENAI_API_KEY with your API key. 
     """
     openai_api_key = os.environ.get("OPENAI_API_KEY")
