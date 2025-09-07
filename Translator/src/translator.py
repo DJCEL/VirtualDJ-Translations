@@ -57,14 +57,3 @@ def translate_missing(language):
     df.to_excel(file_translated)
     print(f"Excel files saved as {file_translated}")
 
-
-def main():
-    #languages_list = ["English","French","German","Italian","Dutch","Spanish","Greek","Portuguese","Japanese","Russian","Chinese (simplified)","Arabic"]
-    languages_list = ["French"]
-    
-    for language in languages_list:
-       print(f"Processing language: {language}\n")
-       translate_missing(language)
-
-if __name__ == "__main__":
-   main()

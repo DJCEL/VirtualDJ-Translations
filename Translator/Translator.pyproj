@@ -5,7 +5,7 @@
     <ProjectGuid>31ba0375-6dcf-4361-98b8-5abf15a5477b</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>src\translator.py</StartupFile>
+    <StartupFile>src\main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -31,6 +31,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include=".\src\main.py" />
+    <Compile Include="src\prepare_files.py" />
     <Compile Include="src\translator.py" />
   </ItemGroup>
   <ItemGroup>
