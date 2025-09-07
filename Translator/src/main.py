@@ -4,10 +4,10 @@ from translator import check_current_translation
 
 def main():
     languages_list = ["English","French","German","Italian","Dutch","Spanish","Greek","Portuguese","Japanese","Russian","Chinese (simplified)","Arabic"]
-    languagestotranslate_list = ["French"]
-    bPrepare_step = True
+    languagestotranslate_list = ["Greek"]
+    bPrepare_step = False
     bTranslate_step = False
-    bCheckTranslation_step = False
+    bCheckTranslation_step = True
 
     """ We prepare the missing translations by language (file compared to English.xml) """
     """ We use Excel files to store the data """
@@ -20,7 +20,7 @@ def main():
 
     """ We check the current translation """
     if bCheckTranslation_step:
-        check_current_translation("French")
+        check_current_translation("Greek")
 
 if __name__ == "__main__":
    main()
