@@ -4,11 +4,10 @@ import pandas as pd
 from pathlib import Path
 
 def translate_missing(language):
-    file_missing = Path(f"./excel/Missing/Missing_{language}.xlsx")
-    file_translated = Path(f"./excel/Translated/Translated_{language}.xlsx")
-
-    """ We use ChatGPT from OpenAI to translate the missing entries in the excel file. """
-    """ Make sure to set the environment variable OPENAI_API_KEY with your API key. """
+    """ 
+    We use ChatGPT from OpenAI to translate the missing entries in the excel file.
+    Make sure to set the environment variable OPENAI_API_KEY with your API key. 
+    """
     openai_api_key = os.environ.get("OPENAI_API_KEY")
     model = "gpt-5"
     #temperature=
@@ -17,6 +16,8 @@ def translate_missing(language):
 
     client = OpenAI(api_key=openai_api_key)
 
+    file_missing = Path(f"./excel/Missing/Missing_{language}.xlsx")
+    file_translated = Path(f"./excel/Translated/Translated_{language}.xlsx")
 
     df = pd.read_excel(file_missing)
     if df.empty:
