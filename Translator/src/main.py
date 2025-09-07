@@ -1,5 +1,5 @@
 from prepare_files import prepare_process_languages
-from translator import translate_missing
+from translator import translate_missing_list
 
 def main():
     languages_list = ["English","French","German","Italian","Dutch","Spanish","Greek","Portuguese","Japanese","Russian","Chinese (simplified)","Arabic"]
@@ -10,8 +10,7 @@ def main():
     prepare_process_languages(languages_list)
 
     """ We translate the missing translations with ChatGPT (gpt-5 model) """
-    for language in languagestotranslate_list:
-        translate_missing(language)
+    translate_missing_list(languagestotranslate_list)
 
 if __name__ == "__main__":
    main()

@@ -3,23 +3,8 @@ from openai import OpenAI
 import pandas as pd
 from pathlib import Path
 
-def translate_missing(language):
-    """ 
-    We use ChatGPT from OpenAI (gpt-5 model) to translate the missing entries in the excel file.
-    Make sure to set the environment variable OPENAI_API_KEY with your API key. 
-    """
-    if language == "English":
-        return
-
+def translate_missing(language, client, model):
     print(f"Processing language: {language}\n")
-
-    openai_api_key = os.environ.get("OPENAI_API_KEY")
-    model = "gpt-5"
-    #temperature=
-    #top_p=
-    #max_output_tokens=
-
-    client = OpenAI(api_key=openai_api_key)
 
     file_missing = Path(f"./excel/Missing/Missing_{language}.xlsx")
     file_translated = Path(f"./excel/Translated/Translated_{language}.xlsx")
@@ -42,6 +27,9 @@ def translate_missing(language):
         
         instructions = "You are a translator assistant for a DJ software named VirtualDJ."
         input_text = f"Translate in {language} the following text: {input_text_english}"
+        #temperature=
+        #top_p=
+        #max_output_tokens=
 
         result = client.responses.create(
             model=model,
@@ -62,3 +50,17 @@ def translate_missing(language):
     df.to_excel(file_translated)
     print(f"Excel files saved as {file_translated}")
 
+
+def translate_missing_list(languagestotranslate_list):
+    """ 
+    We use ChatGPT from OpenAI (gpt-5 model) to translate the missing entries in the excel file.
+    Make sure to set the environment variable OPENAI_API_KEY with your API key. 
+    """
+    openai_api_key = os.environ.get("OPENAI_API_KEY")
+    
+    client = OpenAI(api_key=openai_api_key)
+    model = "gpt-5"
+
+    for language in languagestotranslate_list:
+        if language != "English":
+            translate_missing(language, client, model)
