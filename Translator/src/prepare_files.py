@@ -57,7 +57,7 @@ def prepare_process_languages(languages_list):
 
     for language in languages_list:
        print(f"Processing language: {language}")
-       filepath = Path(f"../Languages/{language}.xml")
+       filepath = Path(f"../Languages_official/{language}.xml")
        df = ReadXML(filepath,f"{language}")
        df_languages_list.append(df)
        output_file = Path(f"./excel/Flattened/Flattened_{language}.xlsx")
