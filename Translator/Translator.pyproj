@@ -32,9 +32,9 @@
     <InterpreterReference Include="Global|PythonCore|3.9" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include=".\src\main.py" />
-    <Compile Include=".\src\prepare_files.py" />
-    <Compile Include=".\src\translator.py" />
+    <Compile Include="src\main.py" />
+    <Compile Include="src\prepare_files.py" />
+    <Compile Include="src\translator.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\" />
