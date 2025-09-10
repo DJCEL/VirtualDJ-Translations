@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<language lang="French" iso="fr" author="djcel" version="8.2" build="8718">
+<language lang="French" iso="fr" author="djcel">
 <Actions>
   <browsed_song_hashtag>ajouter ou supprimer un hashtag de user1, user2 ou du commentaire du fichier actuellement consulté : "browsed_song_hashtag 'user 1' '#high_energy'"</browsed_song_hashtag>
 <Actions>
