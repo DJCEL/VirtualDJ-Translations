@@ -24,7 +24,7 @@ def translate_missing(language:str, client, model:str):
 
         df[f"{language}"] = df[f"{language}"].astype("string")
         
-        instructions = "You are a translator assistant for a DJ software named VirtualDJ."
+        instructions = f"You are a English-{language} translator assistant for a DJ software named VirtualDJ."
         input_text = f"Translate in {language} the following text: {input_text_english}"
         #temperature=
         #top_p=
@@ -110,10 +110,10 @@ def check_current_translation(language:str, explanations_language = "English"):
         print(f"<English>{input_text_english}</English>")
         print(f"<{language}>{input_text_translated}</{language}")
 
-        instructions = "You are a translator assistant for a DJ software named VirtualDJ."
+        instructions = f"You are a English-{language} translator assistant for a DJ software named VirtualDJ."
         input_text = f"Check if the following {language} translation is correct for the following English text. Answer only 'OK' or 'NOK'. If 'NOK', then explain briefly why in {explanations_language} between xml tag 'Comments'\n\n<English>{input_text_english}</English><{language}>{input_text_translated}</{language}>"
 
-        result = client.responses.create(
+        res1 = client.responses.create(
             model=openai_model,
             instructions=instructions,
             input=input_text,
@@ -121,7 +121,7 @@ def check_current_translation(language:str, explanations_language = "English"):
             text={ "verbosity": "low" },
         )
 
-        result_translated = str(result.output_text)
+        result_translated = str(res1.output_text)
        
         is_NOK = result_translated.startswith("NOK")
         position_comments = result_translated.find("<Comments>")

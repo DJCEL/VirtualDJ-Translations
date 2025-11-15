@@ -1,12 +1,2 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<language lang="French" iso="fr" author="ChatGPT">
-  <Actions>
-    obtenir la couleur par défaut d’un stem spécifique<Actions>obtenir la couleur par défaut d’un stem spécifique</Actions>
-  </Actions>
-  <Config>
-    Votre compte est bloqué. Veuillez contacter l’assistance à %s<Config>Votre compte est bloqué. Veuillez contacter l’assistance à %s</Config>
-  </Config>
-  <Settings>
-    Sélectionnez quels pads enregistreront quels stems pour les banques stemsSwap.<Settings>Sélectionnez quels pads enregistreront quels stems pour les banques stemsSwap.</Settings>
-  </Settings>
-</language>
+<language lang="French" iso="fr" author="ChatGPT"><Actions>obtenir la couleur par défaut d’un stem spécifique<Actions>obtenir la couleur par défaut d’un stem spécifique</Actions></Actions><Config>Votre compte est bloqué. Veuillez contacter l’assistance à %s<Config>Votre compte est bloqué. Veuillez contacter l’assistance à %s</Config></Config><Settings>Sélectionnez quels pads enregistreront quels stems pour les banques stemsSwap.<Settings>Sélectionnez quels pads enregistreront quels stems pour les banques stemsSwap.</Settings></Settings></language>
